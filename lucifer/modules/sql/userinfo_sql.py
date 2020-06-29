@@ -2,7 +2,7 @@ import threading
 
 from sqlalchemy import Column, Integer, UnicodeText
 
-from tg_bot.modules.sql import SESSION, BASE
+from lucifer.modules.sql import SESSION, BASE
 
 
 class UserInfo(BASE):
@@ -74,27 +74,3 @@ def set_user_bio(user_id, bio):
 
         SESSION.add(userbio)
         SESSION.commit()
-
-
-def clear_user_info(user_id):
-    with INSERTION_LOCK:
-        curr = SESSION.query(UserInfo).get(user_id)
-        if curr:
-            SESSION.delete(curr)
-            SESSION.commit()
-            return True
-
-        SESSION.close()
-    return False
-
-
-def clear_user_bio(user_id):
-    with INSERTION_LOCK:
-        curr = SESSION.query(UserBio).get(user_id)
-        if curr:
-            SESSION.delete(curr)
-            SESSION.commit()
-            return True
-
-        SESSION.close()
-    return False

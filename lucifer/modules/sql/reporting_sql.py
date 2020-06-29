@@ -3,7 +3,7 @@ from typing import Union
 
 from sqlalchemy import Column, Integer, String, Boolean
 
-from tg_bot.modules.sql import SESSION, BASE
+from lucifer.modules.sql import SESSION, BASE
 
 
 class ReportingUserSettings(BASE):
@@ -42,7 +42,7 @@ def chat_should_report(chat_id: Union[str, int]) -> bool:
         chat_setting = SESSION.query(ReportingChatSettings).get(str(chat_id))
         if chat_setting:
             return chat_setting.should_report
-        return False
+        return True
     finally:
         SESSION.close()
 

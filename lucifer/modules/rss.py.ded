@@ -5,12 +5,12 @@ from feedparser import parse
 from telegram import ParseMode, constants
 from telegram.ext import CommandHandler
 
-from tg_bot import dispatcher, updater
-from tg_bot.modules.helper_funcs.chat_status import user_admin
-from tg_bot.modules.sql import rss_sql as sql
+from lucifer import dispatcher, updater
+from lucifer.modules.helper_funcs.chat_status import user_admin
+from lucifer.modules.sql import rss_sql as sql
 
 
-def show_url(bot, update, args):
+def show_url(update, context, args):
     tg_chat_id = str(update.effective_chat.id)
 
     if len(args) >= 1:
@@ -72,7 +72,7 @@ def list_urls(bot, update):
 
 
 @user_admin
-def add_url(bot, update, args):
+def add_url(update, context, args):
     if len(args) >= 1:
         chat = update.effective_chat
 
@@ -106,7 +106,7 @@ def add_url(bot, update, args):
 
 
 @user_admin
-def remove_url(bot, update, args):
+def remove_url(update, context, args):
     if len(args) >= 1:
         tg_chat_id = str(update.effective_chat.id)
 
@@ -215,16 +215,7 @@ def rss_set(bot, job):
             pass
 
 
-__help__ = """
- - /addrss <link>: add an RSS link to the subscriptions.
- - /removerss <link>: removes the RSS link from the subscriptions.
- - /rss <link>: shows the link's data and the last entry, for testing purposes.
- - /listrss: shows the list of rss feeds that the chat is currently subscribed to.
 
-NOTE: In groups, only admins can add/remove RSS links to the group's subscription
-"""
-
-__mod_name__ = "RSS Feed"
 
 job = updater.job_queue
 

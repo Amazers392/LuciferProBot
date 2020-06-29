@@ -3,8 +3,8 @@ import threading
 
 from sqlalchemy import Column, String, Boolean, UnicodeText, Integer, func, distinct
 
-from tg_bot.modules.helper_funcs.msg_types import Types
-from tg_bot.modules.sql import SESSION, BASE
+from lucifer.modules.helper_funcs.msg_types import Types
+from lucifer.modules.sql import SESSION, BASE
 
 
 class Notes(BASE):
@@ -75,14 +75,20 @@ def add_note_to_db(chat_id, note_name, note_data, msgtype, buttons=None, file=No
 
 def get_note(chat_id, note_name):
     try:
-        return SESSION.query(Notes).get((str(chat_id), note_name))
+        return SESSION.query(Notes).filter(
+            func.lower(Notes.name) == note_name,
+            Notes.chat_id == str(chat_id)
+        ).first()
     finally:
         SESSION.close()
 
 
 def rm_note(chat_id, note_name):
     with NOTES_INSERTION_LOCK:
-        note = SESSION.query(Notes).get((str(chat_id), note_name))
+        note = SESSION.query(Notes).filter(
+            func.lower(Notes.name) == note_name,
+            Notes.chat_id == str(chat_id)
+        ).first()
         if note:
             with BUTTONS_INSERTION_LOCK:
                 buttons = SESSION.query(Buttons).filter(Buttons.chat_id == str(chat_id),
