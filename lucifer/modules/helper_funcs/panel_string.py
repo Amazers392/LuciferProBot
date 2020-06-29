@@ -5,7 +5,7 @@ lucifer_GIF = "https://telegra.ph/file/1c0041128df82a2a076ea.gif"
 lucifer_IMG = "https://telegra.ph/file/c6834a2df735ebfc8f8c9.jpg"
 
 SOURCE_STRING = """
-I'm built in python3, using the python-telegram-bot library, and am fully opensource - you can find what makes me tick [here](https://github.com/LuciferBot/Lucifer)
+I'm built in python3, using the python-telegram-bot library, and am fully opensource - you can find what makes me tick [here](https://github.com/Amazers392/LuciferProBot)
 """
 
 buttons_about = [[InlineKeyboardButton(text="➕ Add me in your Group! ➕", url="t.me/Lucifer_ProBot?startgroup=true")]]
