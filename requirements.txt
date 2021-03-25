@@ -9,7 +9,7 @@ coffeehouse
 spamwatch
 python-telegram-bot==12.8
 telethon
-PyYAML==5.1.2
+PyYAML==5.4
 numpy
 urbandict
 pyowm
